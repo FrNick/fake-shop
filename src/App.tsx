@@ -15,9 +15,21 @@ const list = (
         <li>list item 3</li>
     </ul>
 )
+// React component. It could be function declaration or an arrow function. The components are written as the PascalCase
+const Title = () => <h1>HELLO, REACT component!</h1>
+const List = () => (
+    <ul>
+        <li>list item 1</li>
+        <li>list item 2</li>
+        <li>list item 3</li>
+    </ul>
+)
+
 function App() {
     return (
         <div className="App">
+            <Title />
+            <List />
             {title} {list} {399 * 46}
         </div>
     )
