@@ -23,14 +23,15 @@ const list = (
 // When we do 'return' we can add if we need to, when we do '=>' we cannot add anithing - the function is completed.
 // JSX expressions must have one parent element:
 // +++++++++++++++++++++++++++++++++++++++++++++++
-const Title = () => <h1>HELLO, REACT component!</h1>
-const List = () => (
-    <ul>
-        <li>list item 1</li>
-        <li>list item 2</li>
-        <li>list item 3</li>
-    </ul>
-)
+
+// const Title = () => <h1>HELLO, REACT component!</h1>
+// const List = () => (
+//     <ul>
+//         <li>list item 1</li>
+//         <li>list item 2</li>
+//         <li>list item 3</li>
+//     </ul>
+// )
 // +++++++++++++++++++++++++++++++++++++++++++++++
 // we can add other elements in the function but the elements cannot be stylized at least there is no container for flexbox:
 // +++++++++++++++++++++++++++++++++++++++++++++++
@@ -82,10 +83,31 @@ const List = () => (
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // instead of <React.Fragment></React.Fragment> we can use <></>:
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// but how to add a text or a components to the components we have?
+// we can make anothe component - something like const TitleApp = blablabla, but that is just the repetition of the action. How not to repeat that? We add (props) and {props.title} that would wokr withous the typescript, but in the typescript we have to follow some rulles: type and its values:
+// +++++++++++++++++++++++++++++++++++++++++++++++
+type TitleProps = {
+    title: string
+}
+const Title = (props: TitleProps) => (
+    <h1>HELLO, REACT component! {props.title}</h1>
+)
+// const TitleApp = () => <h1>HELLO, App component!</h1>
+const List = () => (
+    <ul>
+        <li>list item 1</li>
+        <li>list item 2</li>
+        <li>list item 3</li>
+    </ul>
+)
+// +++++++++++++++++++++++++++++++++++++++++++++++
 function App() {
     return (
         <>
-            <Title />
+            <Title title="For now it is some foggy" />
+            <Title title="But we have to move on!" />
+            <Title title="Do not stop, just do it!" />
+            {/* <TitleApp /> */}
             <List />
             {title} {list} {399 * 46}
             <p>
@@ -104,7 +126,7 @@ function App() {
     )
 }
 // +++++++++++++++++++++++++++++++++++++++++++++++
-
+// git status   git add . git commit -m "" git status
 // +++++++++++++++++++++++++++++++++++++++++++++++
 
 // +++++++++++++++++++++++++++++++++++++++++++++++
