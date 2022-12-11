@@ -89,6 +89,7 @@ const list = (
 type TitleProps = {
     title: string
     text?: string
+    nmbr: number
 }
 // interface TitleProps {
 //     title: string
@@ -98,7 +99,7 @@ const Title = (props: TitleProps) => {
     return (
         <h1>
             HELLO, REACT component! {props.text}
-            {props.title}
+            {props.title} {props.nmbr}
         </h1>
     )
 }
@@ -117,14 +118,17 @@ function App() {
             <Title
                 title="For now it is some foggy"
                 text="Repeating means learning!"
+                nmbr={15}
             />
             <Title
                 title="But we have to move on!"
                 text="And you have to be attached to it!"
+                nmbr={105}
             />
             <Title
                 title="Do not stop, just do it!"
                 text="And them you'll get the sweet frout of your efforts!"
+                nmbr={1005}
             />
             {/* <TitleApp /> */}
             <List />
