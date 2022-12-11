@@ -84,14 +84,24 @@ const list = (
 // instead of <React.Fragment></React.Fragment> we can use <></>:
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // but how to add a text or a components to the components we have?
-// we can make anothe component - something like const TitleApp = blablabla, but that is just the repetition of the action. How not to repeat that? We add (props) and {props.title} that would wokr withous the typescript, but in the typescript we have to follow some rulles: type and its values:
+// we can make anothe component - something like const TitleApp = blablabla, but that is just the repetition of the action. How not to repeat that? We add (props) and {props.title} that would wokr withous the typescript, but in the typescript we have to follow some rulles: type or interface and its values: if the parameter is not necessary we add "?"
 // +++++++++++++++++++++++++++++++++++++++++++++++
 type TitleProps = {
     title: string
+    text?: string
 }
-const Title = (props: TitleProps) => (
-    <h1>HELLO, REACT component! {props.title}</h1>
-)
+// interface TitleProps {
+//     title: string
+// }
+const Title = (props: TitleProps) => {
+    console.log(props)
+    return (
+        <h1>
+            HELLO, REACT component! {props.text}
+            {props.title}
+        </h1>
+    )
+}
 // const TitleApp = () => <h1>HELLO, App component!</h1>
 const List = () => (
     <ul>
@@ -104,12 +114,21 @@ const List = () => (
 function App() {
     return (
         <>
-            <Title title="For now it is some foggy" />
-            <Title title="But we have to move on!" />
-            <Title title="Do not stop, just do it!" />
+            <Title
+                title="For now it is some foggy"
+                text="Repeating means learning!"
+            />
+            <Title
+                title="But we have to move on!"
+                text="And you have to be attached to it!"
+            />
+            <Title
+                title="Do not stop, just do it!"
+                text="And them you'll get the sweet frout of your efforts!"
+            />
             {/* <TitleApp /> */}
             <List />
-            {title} {list} {399 * 46}
+            {list} {399 * 46}
             <p>
                 Paragraph 1 Lorem ipsum dolor sit amet consectetur, adipisicing
                 elit. Saepe voluptatibus earum repellat aliquid tenetur
