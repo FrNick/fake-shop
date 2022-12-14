@@ -22,8 +22,32 @@ const ProductsList = (props: Props) => {
                 alignItems="center"
                 spacing={4}
             >
-                <Grid item>
-                    <ProductListItem />
+                <Grid item xs={12} sm={6} md={4}>
+                    <ProductListItem
+                        name="iPhoneX"
+                        description="This is iPhoneX"
+                        type="phone"
+                        capacity={64}
+                        price={500}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <ProductListItem
+                        name="iPhoneXS"
+                        description="This is iPhoneXS"
+                        type="phone"
+                        capacity={128}
+                        price={1000}
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <ProductListItem
+                        name="iPhone12 pro"
+                        description="This is iPhone12"
+                        type="phone"
+                        capacity={512}
+                        price={800}
+                    />
                 </Grid>
             </Grid>
         </>
