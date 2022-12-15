@@ -3,6 +3,19 @@ import { Button } from '@mui/material'
 import { CardActions } from '@mui/material'
 import { Card } from '@mui/material'
 import './ProductListItem.scss'
+// the object destructurisation
+const user = {
+    name: 'Jack',
+    age: 20,
+    gender: 'male',
+}
+// const name = user.name
+// console.log(name)
+// @ts-ignore
+const { name, age, gender } = user
+console.log(name)
+console.log(age)
+console.log(gender)
 type Props = {
     name: string
     description: string
