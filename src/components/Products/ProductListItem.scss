@@ -4,7 +4,6 @@
     margin: 20px;
 }
 .product {
-    background-color: rgb(110, 110, 201);
     text-transform: uppercase;
     h4 {
         font-size: 23px;
@@ -20,6 +19,14 @@
         margin-bottom: 10px;
         span {
             font-weight: bold;
+        }
+    }
+    .product-image {
+        img {
+            width: 150px;
+            height: auto;
+            border: 4px solid rgb(79, 65, 65);
+            border-radius: 30%;
         }
     }
 }
