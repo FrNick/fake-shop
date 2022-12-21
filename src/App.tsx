@@ -178,23 +178,46 @@
 // ctrl+alt+r opens Search Snippet by prefix or description
 // first we write: type script react arrow function component export (tsrafce):
 // +++++++++++++++++++++++++++++++++++++++++++++++
-import React from 'react'
+// import React from 'react'
 
-type Props = {}
+// type Props = {}
 
-export const App = (props: Props) => {
-    return <div>App</div>
-}
+// const App = (props: Props) => {
+//   return (
+//     <div>App</div>
+//   )
+// }
 
 // export default App
-
 // +++++++++++++++++++++++++++++++++++++++++++++++
 // the difference of export App:
 // App.tst has export, index.tsx has import
 // 1) if App.tsx has export default App
 // 2) if we don't use export default App we put export before type and before const in App.tsx
-// then in index.tsx we have to use import {App}
+// then in index.tsx we have to use import {App} in "{}"
 // the difference is that the export default App could be written only 1 time, but the named export could be used as many times as we need. The name could be whatever.
+// named App:
+// +++++++++++++++++++++++++++++++++++++++++++++++
+// import React from 'react'
+
+// type Props = {}
+
+// export const App = (props: Props) => {
+//     return <div>App</div>
+// }
+
+// // export default App
+
+// +++++++++++++++++++++++++++++++++++++++++++++++
+import React from 'react'
+
+type Props = {}
+
+const App = (props: Props) => {
+    return <div>App</div>
+}
+
+export default App
 // +++++++++++++++++++++++++++++++++++++++++++++++
 
 // +++++++++++++++++++++++++++++++++++++++++++++++
