@@ -26,6 +26,10 @@ const ProductListItem = ({
     image,
 }: Props) => {
     const [count, setCount] = useState<number>(1)
+    const onIncrementClick = () =>
+        setCount((prevState: number) => prevState + 1)
+    const onDecrementClick = () =>
+        setCount((prevState: number) => prevState - 1)
     return (
         <Card className="product">
             <CardContent>
@@ -46,7 +50,7 @@ const ProductListItem = ({
                     <Button
                         variant="contained"
                         size="small"
-                        onClick={() => setCount(count - 1)}
+                        onClick={() => onDecrementClick()}
                     >
                         -
                     </Button>
@@ -54,7 +58,7 @@ const ProductListItem = ({
                     <Button
                         variant="contained"
                         size="small"
-                        onClick={() => setCount(count + 1)}
+                        onClick={() => onIncrementClick()}
                     >
                         +
                     </Button>
