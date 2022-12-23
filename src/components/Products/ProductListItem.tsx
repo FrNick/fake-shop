@@ -26,10 +26,16 @@ const ProductListItem = ({
     image,
 }: Props) => {
     const [count, setCount] = useState<number>(1)
+    const [color, setColor] = useState<string>('green')
     const onIncrementClick = () =>
         setCount((prevState: number) => prevState + 1)
     const onDecrementClick = () =>
         setCount((prevState: number) => prevState - 1)
+
+    const toChageColorClick = () =>
+        setColor((prevState: string) =>
+            prevState === 'green' ? 'red' : 'green'
+        )
     return (
         <Card className="product">
             <CardContent>
@@ -46,6 +52,8 @@ const ProductListItem = ({
                     <span>Capacity:</span> {capacity} Gb
                 </div>
                 <div className="product-price">Price:${price}</div>
+                <p>Color:{color}</p>
+                <button onClick={toChageColorClick}>Change color</button>
                 <div className="product-quantity">
                     <Button
                         variant="contained"
