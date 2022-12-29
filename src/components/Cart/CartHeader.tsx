@@ -17,15 +17,26 @@ const CartHeader = ({
     productsInCart,
     productsObject = getProductsObject(productsArray),
 }: Props) => {
-    console.log(productsObject)
     return (
         <div>
-            {keys(productsInCart).map((productId) => (
-                <div key={productId}>
-                    {productsObject[parseInt(productId)].name}:{' '}
-                    {productsInCart[parseInt(productId)]}
-                </div>
-            ))}
+            <div>
+                {keys(productsInCart).map((productId) => (
+                    <div key={productId}>
+                        {productsObject[parseInt(productId)].name}:{' '}
+                        {productsInCart[parseInt(productId)]}
+                    </div>
+                ))}
+            </div>
+            <div>
+                Total: $
+                {keys(productsInCart).reduce(
+                    (sum, productId) =>
+                        sum +
+                        productsObject[parseInt(productId)].price *
+                            productsInCart[parseInt(productId)],
+                    0
+                )}
+            </div>
         </div>
     )
 }
