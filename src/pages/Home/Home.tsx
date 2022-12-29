@@ -1,7 +1,7 @@
 import ProductsList from 'components/Products/ProductsList'
 import React from 'react'
 
-type Props = { addProductToCart: (count: number, price: number) => void }
+type Props = { addProductToCart: (id: number, count: number) => void }
 
 const Home = ({ addProductToCart }: Props) => {
     return (
