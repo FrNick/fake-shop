@@ -1,10 +1,9 @@
-import React from 'react'
 import { keys } from 'lodash'
 import productsArray, {
     getProductsObject,
     Product,
 } from 'components/Products/ProductsArray'
-import CartTotal from 'pages/Cart/CartTotal'
+import CartProductListItem from './CartProductListItem'
 type Props = {
     productsInCart: {
         [id: number]: number
@@ -12,19 +11,22 @@ type Props = {
     productsObject?: {
         [key: number]: Product
     }
+    CartItem?: any
 }
 
 const CartProductList = ({
     productsInCart,
     productsObject = getProductsObject(productsArray),
+    CartItem = CartProductListItem,
 }: Props) => {
     return (
         <div>
             {keys(productsInCart).map((productId) => (
-                <div key={productId}>
-                    {productsObject[parseInt(productId)].name}:{' '}
-                    {productsInCart[parseInt(productId)]}
-                </div>
+                <CartItem
+                    key={productId}
+                    product={productsObject[parseInt(productId)]}
+                    ProductCount={productsInCart[parseInt(productId)]}
+                />
             ))}
         </div>
     )
