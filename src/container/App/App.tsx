@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer'
 import Main from '../Main/Main'
 import { StyledEngineProvider } from '@mui/material'
 import 'style/style.scss'
+import { omit } from 'lodash'
 
 type Props = {}
 type AppProps = {
@@ -23,11 +24,7 @@ const App = (props: Props) => {
         }))
     }
     const removeProductFromCart = (id: number) => {
-        setproductsInCart((prevState: AppProps) => {
-            let prevProductsInCart = { ...prevState }
-            delete prevProductsInCart[id]
-            return prevProductsInCart
-        })
+        setproductsInCart((prevState: AppProps) => omit(prevState, id))
     }
     return (
         <StyledEngineProvider injectFirst>
