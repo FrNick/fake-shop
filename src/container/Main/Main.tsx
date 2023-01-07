@@ -1,4 +1,4 @@
-import { Container } from '@mui/system'
+import { Container } from '@mui/material'
 import CartPage from 'pages/Cart/CartPage'
 import AboutPage from 'pages/About/AboutPage'
 import ShippingPage from 'pages/Shipping/ShippingPage'
@@ -8,10 +8,17 @@ import { Routes, Route } from 'react-router-dom'
 
 type Props = {
     addProductToCart: (id: number, count: number) => void
-    productsInCart: { [id: number]: number }
+    productsInCart: {
+        [id: number]: number
+    }
+    removeProductFromCart: (id: number) => void
 }
 
-const Main = ({ addProductToCart, productsInCart }: Props) => {
+const Main = ({
+    addProductToCart,
+    productsInCart,
+    removeProductFromCart,
+}: Props) => {
     return (
         <>
             <Container maxWidth="lg">
@@ -23,7 +30,12 @@ const Main = ({ addProductToCart, productsInCart }: Props) => {
 
                     <Route
                         path="cart"
-                        element={<CartPage productsInCart={productsInCart} />}
+                        element={
+                            <CartPage
+                                productsInCart={productsInCart}
+                                removeProductFromCart={removeProductFromCart}
+                            />
+                        }
                     />
                     <Route path="about" element={<AboutPage />} />
                     <Route path="shipping" element={<ShippingPage />} />
