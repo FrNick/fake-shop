@@ -1,0 +1,472 @@
+16:30:47	 From Виктория Бойко : +
+16:30:48	 From Suren Kocharyan : +
+16:31:01	 From Yuriy Stepanyuk : +
+16:31:15	 From Yaroslav Kuzniak : ==
+16:31:30	 From Yuriy Stepanyuk : -
+16:31:43	 From Suren Kocharyan : +
+16:31:48	 From Ivan : не делал
+16:32:06	 From Yaroslav Kuzniak : ===
+16:32:52	 From Suren Kocharyan : +
+16:32:58	 From Yuriy Stepanyuk : +
+16:33:00	 From Виктория Бойко : +
+16:33:32	 From Yaroslav Kuzniak : ==
+16:33:55	 From Yuriy Stepanyuk : +
+16:34:09	 From Маслов Сергей : +
+16:34:43	 From Suren Kocharyan : +
+16:34:43	 From Виктория Бойко : +
+16:34:56	 From Yaroslav Kuzniak : ===
+16:37:34	 From Ivan : можно на cartpage
+16:38:36	 From Suren Kocharyan : +
+16:39:01	 From Виктория Бойко : +
+16:39:01	 From Маслов Сергей : +
+16:39:32	 From Yaroslav Kuzniak : ===
+16:40:48	 From Suren Kocharyan : 1
+16:40:53	 From Ivan : 0
+16:41:00	 From Маслов Сергей : 1
+16:41:07	 From Виктория Бойко : 1, але не зєднаний
+16:41:12	 From Yuriy Stepanyuk : 0, я пропустив минуле звннятя
+16:41:16	 From Yaroslav Kuzniak : const CartPage = ({
+    productsInCart,
+    productsObject = getProductsObject(productsArray),
+}: Props) => {
+    return (
+        <div>
+            <div>
+                {keys(productsInCart).map((productId) => (
+                    <div key={productId}>
+                        {productsObject[parseInt(productId)].name}:{" "}
+                        {productsInCart[parseInt(productId)]}
+                    </div>
+                ))}
+            </div>
+            <CartTotal productsInCart={productsInCart} />
+        </div>
+    )
+}
+16:41:53	 From Yaroslav Kuzniak : import React from "react"
+import { keys } from "lodash"
+import productsArray, {
+    getProductsObject,
+    Product,
+} from "components/Products/productsArray"
+import CartTotal from "components/Cart/CartTotal"
+
+type Props = {
+    productsInCart: {
+        [id: number]: number
+    }
+    productsObject?: {
+        [key: number]: Product
+    }
+}
+16:42:46	 From Yuriy Stepanyuk : +
+16:43:28	 From Suren Kocharyan : У мене вже там нові компоненти
+16:43:51	 From Yuriy Stepanyuk : ні
+16:44:07	 From Suren Kocharyan : Cart Page
+16:44:43	 From Yaroslav Kuzniak : npm i react-router-dom@6.3
+16:45:05	 From Yuriy Stepanyuk : +
+16:45:17	 From Yaroslav Kuzniak : import { BrowserRouter } from "react-router-dom"
+16:45:22	 From Yaroslav Kuzniak : <BrowserRouter>
+            <App />
+        </BrowserRouter>
+16:45:59	 From Yaroslav Kuzniak : Main
+16:46:00	 From Yaroslav Kuzniak : import { Routes, Route } from "react-router-dom"
+16:46:10	 From Yaroslav Kuzniak : <Routes>
+                    <Route
+                        path="/"
+                        element={<Home addProductToCart={addProductToCart} />}
+                    />
+                    <Route
+                        path="cart"
+                        element={<CartPage productsInCart={productsInCart} />}
+                    />
+                    <Route path="about" element={<AboutPage />} />
+                    <Route path="shipping" element={<ShippingPage />} />
+                    <Route path="payment" element={<PaymentPage />} />
+                </Routes>
+16:46:31	 From Yaroslav Kuzniak : import CartPage from "pages/Cart/CartPage"
+import Home from "pages/Home/Home"
+16:46:52	 From Виктория Бойко : +
+16:51:00	 From Yaroslav Kuzniak : import React from "react"
+import { keys } from "lodash"
+import productsArray, {
+    getProductsObject,
+    Product,
+} from "components/Products/productsArray"
+
+type Props = {
+    productsInCart: {
+        [id: number]: number
+    }
+    productsObject?: {
+        [key: number]: Product
+    }
+}
+16:51:09	 From Yaroslav Kuzniak : const CartTotal = ({
+    productsInCart,
+    productsObject = getProductsObject(productsArray),
+}: Props) => {
+    return (
+        <div>
+            Total:{" "}
+            {keys(productsInCart).reduce(
+                (sum, productId) =>
+                    sum +
+                    productsObject[parseInt(productId)].price *
+                        productsInCart[parseInt(productId)],
+                0
+            )}{" "}
+            $
+        </div>
+    )
+}
+
+export default CartTotal
+16:52:30	 From Yaroslav Kuzniak : export const getProductsObject = (array:Product[]) => array.reduce((object,product) => ({
+    ...object,
+    [product.id]: product
+}), {})
+16:53:27	 From Yuriy Stepanyuk : Все ок
+16:54:18	 From Yaroslav Kuzniak : import React from "react"
+import Button from "@mui/material/Button"
+import { NavLink } from "react-router-dom"
+
+type Props = {
+    to: string
+    children: React.ReactNode
+}
+16:54:26	 From Yaroslav Kuzniak : const MenuItem = ({ to, children }: Props) => {
+    return (
+        <Button color="inherit">
+            <NavLink
+                to={to}
+                className={({ isActive }) =>
+                    isActive ? "nav-active" : "nav-item"
+                }
+            >
+                {children}
+            </NavLink>
+        </Button>
+    )
+}
+
+export default MenuItem
+16:54:47	 From Yaroslav Kuzniak : import React from "react"
+import "./Menu.scss"
+import MenuItem from "./MenuItem"
+
+type Props = {}
+
+const Menu = (props: Props) => {
+    return (
+        <>
+            <MenuItem to="/">Home</MenuItem>
+            <MenuItem to="/about">About</MenuItem>
+            <MenuItem to="/shipping">Shipping</MenuItem>
+            <MenuItem to="/payment">Payment</MenuItem>
+            <MenuItem to="/cart">Cart</MenuItem>
+        </>
+    )
+}
+
+export default Menu
+16:56:05	 From Yuriy Stepanyuk : -
+16:56:35	 From Suren Kocharyan : +
+16:56:36	 From Yuriy Stepanyuk : Все ок
+16:56:40	 From Маслов Сергей : +
+16:56:41	 From Yuriy Stepanyuk : Я відкдючив scss
+16:57:08	 From Yaroslav Kuzniak : .nav-item {
+    color:white;
+    text-decoration: none;
+}
+.nav-active {
+    text-decoration: none;
+    color:palevioletred;
+}
+16:57:48	 From Yaroslav Kuzniak : ===
+16:58:17	 From Виктория Бойко : покажіть будь ласка App
+16:59:26	 From Виктория Бойко : -
+16:59:28	 From Виктория Бойко : +
+16:59:35	 From Виктория Бойко : вже получилось
+16:59:47	 From Suren Kocharyan : +
+16:59:51	 From Маслов Сергей : +
+17:00:21	 From Виктория Бойко : +
+17:00:53	 From Yaroslav Kuzniak : ===
+17:01:56	 From Yuriy Stepanyuk : Покажіть ще раз картхедер
+17:02:05	 From Виктория Бойко : +
+17:02:20	 From Yuriy Stepanyuk : Скопіюйте пропси будь ласка
+17:02:30	 From Yaroslav Kuzniak : type Props = {
+    productsInCart: {
+        [id: number]: number
+    }
+    productsObject?: {
+        [key: number]: Product
+    }
+}
+
+const CartHeader = ({
+    productsInCart,
+    productsObject = getProductsObject(productsArray),
+}: Props) => {
+17:02:31	 From Yuriy Stepanyuk : так
+17:03:09	 From Yuriy Stepanyuk : -
+17:03:32	 From Yaroslav Kuzniak : import { keys } from "lodash"
+import productsArray, {
+    getProductsObject,
+    Product,
+} from "components/Products/productsArray"
+import CartTotal from "./CartTotal"
+17:05:59	 From Yuriy Stepanyuk : дякую
+17:06:55	 From Suren Kocharyan : +
+17:06:56	 From Виктория Бойко : +
+17:06:57	 From Маслов Сергей : +
+17:07:20	 From Yaroslav Kuzniak : ===
+17:09:02	 From Yaroslav Kuzniak : import React from "react"
+import { keys } from "lodash"
+import productsArray, {
+    getProductsObject,
+    Product,
+} from "components/Products/productsArray"
+17:09:07	 From Yaroslav Kuzniak : type Props = {
+    productsInCart: {
+        [id: number]: number
+    }
+    productsObject?: {
+        [key: number]: Product
+    }
+}
+17:09:13	 From Yaroslav Kuzniak : const CartProductList = ({
+    productsInCart,
+    productsObject = getProductsObject(productsArray),
+}: Props) => {
+    return (
+        <div>
+            {keys(productsInCart).map((productId) => (
+                <div key={productId}>
+                    {productsObject[parseInt(productId)].name}:{" "}
+                    {productsInCart[parseInt(productId)]}
+                </div>
+            ))}
+        </div>
+    )
+}
+
+export default CartProductList
+17:09:46	 From Виктория Бойко : +
+17:09:56	 From Yuriy Stepanyuk : +
+17:10:19	 From Suren Kocharyan : +
+17:10:33	 From Yaroslav Kuzniak : ===
+17:12:10	 From Yuriy Stepanyuk : +
+17:12:26	 From Suren Kocharyan : +
+17:12:30	 From Маслов Сергей : +
+17:12:31	 From Виктория Бойко : +
+17:12:49	 From Yaroslav Kuzniak : ===
+17:14:24	 From Маслов Сергей : что там осталось?
+17:14:39	 From Yuriy Stepanyuk : +
+17:15:08	 From Виктория Бойко : +
+17:15:31	 From Suren Kocharyan : +
+17:15:56	 From Маслов Сергей : +
+17:15:59	 From Yaroslav Kuzniak : ===
+17:16:48	 From Виктория Бойко : +
+17:16:49	 From Yuriy Stepanyuk : +-
+17:16:57	 From Suren Kocharyan : +
+17:17:22	 From Yuriy Stepanyuk : В загальному розумію, потрібно глибше передивитись код
+17:17:26	 From Yaroslav Kuzniak : ===
+17:18:47	 From Yuriy Stepanyuk : +
+17:19:30	 From Виктория Бойко : +
+17:20:57	 From Yaroslav Kuzniak : ==
+17:22:52	 From Yuriy Stepanyuk : id
+17:25:05	 From Yuriy Stepanyuk : +
+17:25:31	 From Виктория Бойко : +
+17:25:33	 From Маслов Сергей : +
+17:26:32	 From Yaroslav Kuzniak : ===
+17:29:35	 From Yuriy Stepanyuk : +
+17:30:18	 From Yaroslav Kuzniak : <CartItem
+                    key={productId}
+                    product={productsObject[parseInt(productId)]}
+                    productCount={productsInCart[parseInt(productId)]}
+                />
+17:30:25	 From Yaroslav Kuzniak : import CartProductListItem from "./CartProductListItem"
+17:30:33	 From Yaroslav Kuzniak : CartItem = CartProductListItem,
+17:31:14	 From Виктория Бойко : +
+17:33:23	 From Маслов Сергей : картхедер покажіть
+17:34:02	 From Suren Kocharyan : не встигаю
+17:34:21	 From Suren Kocharyan : так
+17:34:39	 From Yaroslav Kuzniak : import { keys } from "lodash"
+import productsArray, {
+    getProductsObject,
+    Product,
+} from "components/Products/productsArray"
+import CartProductListItem from "./CartProductListItem"
+
+type Props = {
+    productsInCart: {
+        [id: number]: number
+    }
+    productsObject?: {
+        [key: number]: Product
+    }
+    CartItem?: any
+}
+17:34:48	 From Yaroslav Kuzniak : const CartProductList = ({
+    productsInCart,
+    productsObject = getProductsObject(productsArray),
+    CartItem = CartProductListItem,
+}: Props) => {
+    return (
+        <div>
+            {keys(productsInCart).map((productId) => (
+                <CartItem
+                    key={productId}
+                    product={productsObject[parseInt(productId)]}
+                    productCount={productsInCart[parseInt(productId)]}
+                />
+            ))}
+        </div>
+    )
+}
+
+export default CartProductList
+17:35:47	 From Маслов Сергей : свариться
+17:38:06	 From Suren Kocharyan : +
+17:38:33	 From Yaroslav Kuzniak : ===
+17:42:39	 From Yaroslav Kuzniak : import { Card, CardContent, Grid } from "@mui/material"
+import { Product } from "components/Products/productsArray"
+17:42:43	 From Yaroslav Kuzniak : type Props = {
+    product: Product
+    productCount: number
+}
+17:42:51	 From Yaroslav Kuzniak : const CartProductListItemExtended = ({ product, productCount }: Props) => {
+    return (
+        <Grid item xs={12} sm={4}>
+            <Card>
+                <CardContent>
+                    <div className="product-img">
+                        <img src={product.image} alt="" />
+                    </div>
+                    <div>{product.name}</div>
+                    <p>Price for one item: {product.price}</p>
+                    <p>Count: {productCount}</p>
+                </CardContent>
+            </Card>
+        </Grid>
+    )
+}
+
+export default CartProductListItemExtended
+17:46:25	 From Yuriy Stepanyuk : -
+17:46:27	 From Маслов Сергей : наче не свариться)
+17:46:29	 From Виктория Бойко : Grid, Card, name помилка
+17:46:35	 From Suren Kocharyan : +
+17:46:41	 From Yaroslav Kuzniak : import { Card, CardContent, Grid } from "@mui/material"
+17:47:00	 From Yuriy Stepanyuk : Свариться на пропс product
+17:47:00	 From Виктория Бойко : заімпортую зараз
+17:47:12	 From Yuriy Stepanyuk : так
+17:47:51	 From Yuriy Stepanyuk : працює
+17:47:57	 From Виктория Бойко : -
+17:48:39	 From Yaroslav Kuzniak : ===
+17:48:43	 From Виктория Бойко : дякую!
+17:50:12	 From Yaroslav Kuzniak : ===
+17:51:44	 From Виктория Бойко : +
+17:51:50	 From Маслов Сергей : +
+17:52:40	 From Yuriy Stepanyuk : +
+17:52:41	 From Маслов Сергей : де там фрагмент зробить ?
+17:54:15	 From Yuriy Stepanyuk : Scss підєднати?
+17:54:51	 From Yuriy Stepanyuk : Ми не імпортували сюди scss
+17:55:14	 From Yuriy Stepanyuk : зрозумів
+17:56:33	 From Yaroslav Kuzniak : .product-image {
+    img {
+        width: 150px;
+        height: auto;
+    }
+    
+    text-align: center;
+}
+17:58:05	 From Виктория Бойко : +
+17:58:18	 From Маслов Сергей : +
+17:58:51	 From Yaroslav Kuzniak : ===
+17:59:08	 From Yuriy Stepanyuk : +
+18:00:37	 From Yaroslav Kuzniak : ===
+18:01:52	 From Виктория Бойко : +
+18:02:01	 From Yuriy Stepanyuk : +
+18:02:12	 From Маслов Сергей : +
+18:04:05	 From Yaroslav Kuzniak : ===
+18:04:59	 From Yuriy Stepanyuk : +
+18:05:04	 From Виктория Бойко : +
+18:05:07	 From Маслов Сергей : +
+18:05:24	 From Yaroslav Kuzniak : ===
+18:05:25	 From Suren Kocharyan : У мене помилка
+18:07:05	 From Yaroslav Kuzniak : const CartPage = ({ productsInCart }: Props) => {
+    return (
+        <div>
+            <Typography
+                variant="h4"
+                sx={{
+                    textAlign: "center",
+                    margin: "40px 0 20px",
+                }}
+            >
+                CART
+            </Typography>
+            <Grid container spacing={4}>
+                <CartProductList
+                    productsInCart={productsInCart}
+                    CartItem={CartProductListItemExtended}
+                />
+            </Grid>
+
+            <CartTotal productsInCart={productsInCart} />
+        </div>
+    )
+}
+18:10:32	 From Виктория Бойко : +
+18:11:12	 From Маслов Сергей : +
+18:12:10	 From Yaroslav Kuzniak : import DeleteIcon from '@mui/icons-material/Delete';
+18:13:41	 From Виктория Бойко : +
+18:13:50	 From Yuriy Stepanyuk : +
+18:14:36	 From Маслов Сергей : +
+18:14:56	 From Yaroslav Kuzniak : ===
+18:15:41	 From Yaroslav Kuzniak : removeProductFromCart
+18:16:09	 From Yaroslav Kuzniak : 1. Delete property object
+18:16:56	 From Yaroslav Kuzniak : 2. https://lodash.com/docs/4.17.15#omit
+18:18:24	 From Yuriy Stepanyuk : +
+18:18:30	 From Виктория Бойко : +
+18:18:51	 From Yaroslav Kuzniak : ===
+18:30:21	 From Yuriy Stepanyuk : +
+18:30:22	 From Suren Kocharyan : +
+18:30:23	 From Виктория Бойко : +
+18:30:37	 From Yaroslav Kuzniak : ===
+18:30:42	 From Yuriy Stepanyuk : -
+18:30:53	 From Виктория Бойко : -
+18:31:03	 From Yaroslav Kuzniak : ===
+18:31:51	 From Маслов Сергей : id
+18:33:34	 From Виктория Бойко : через JSON
+18:33:40	 From Yuriy Stepanyuk : Переприсвоїти
+18:35:27	 From Yaroslav Kuzniak : const removeProductFromCart = (id: number) => {
+        setProductsInCart((prevState: AppProps) => {
+            let prevProductsInCart = { ...prevState }
+            delete prevProductsInCart[id]
+            return prevProductsInCart
+        })
+    }
+18:37:09	 From Виктория Бойко : +
+18:37:20	 From Маслов Сергей : +
+18:37:24	 From Yuriy Stepanyuk : +
+18:37:51	 From Yaroslav Kuzniak : ===
+18:40:39	 From Виктория Бойко : +
+18:41:02	 From Yuriy Stepanyuk : +
+18:42:05	 From Yaroslav Kuzniak : ==
+18:42:33	 From Yuriy Stepanyuk : Свариться при перекидані в main
+18:46:22	 From Yaroslav Kuzniak : ===
+18:46:31	 From Yaroslav Kuzniak : removeProductFromCart: (id: number) => void
+18:46:50	 From Виктория Бойко : +
+18:46:57	 From Yuriy Stepanyuk : +
+18:47:52	 From Yaroslav Kuzniak : ===
+18:48:02	 From Виктория Бойко : +
+18:49:22	 From Yuriy Stepanyuk : Покажіть ще раз мейн
+18:50:50	 From Yaroslav Kuzniak : https://github.com/kznkv-skillup/fake-shop/tree/lesson-10
+18:51:25	 From Yaroslav Kuzniak : ===
+18:53:17	 From Yuriy Stepanyuk : +
+18:53:20	 From Виктория Бойко : +
+18:56:28	 From Yaroslav Kuzniak : https://reactrouter.com/en/v6.3.0/api
+18:59:09	 From Yuriy Stepanyuk : +

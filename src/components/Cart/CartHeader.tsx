@@ -1,5 +1,5 @@
 import CartTotal from './CartTotal'
-import CartProductList from 'components/Cart/CartProductList'
+import CartProductList from './CartProductList'
 type Props = {
     productsInCart: {
         [id: number]: number

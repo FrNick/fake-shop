@@ -7,7 +7,7 @@ type Props = {
 const CartProductListItem = ({ product, productCount }: Props) => {
     return (
         <div>
-            {product.name}:{productCount}
+            {product.name}: {productCount}
         </div>
     )
 }
